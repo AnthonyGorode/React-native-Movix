@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Share, Platform, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Share, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Loadable from './utils/Loadable';
 import { getFilmDetailFromApi } from '../Config/API/apiMovies';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -45,13 +45,13 @@ class FilmDetails extends Component {
     // }
 
     _displayFavoriteImage = () => {
-        let sourceImage = require("../utils/Images/ic_favorite_border.png")
+        let sourceImage = require("../assets/Images/ic_favorite_border.png")
         let shouldLarge = false
         const checkFilmFavoris = this.props.favoritesFilm.findIndex(
             item => item.id == this.state.film.id
         )
         if(checkFilmFavoris !== -1){
-            sourceImage = require("../utils/Images/ic_favorite.png")
+            sourceImage = require("../assets/Images/ic_favorite.png")
             shouldLarge = true
         }
         return (
@@ -124,19 +124,17 @@ class FilmDetails extends Component {
     }
 
     _displayFloatingActionButton = () => {
-        const { film } = this.state
-        if(film != undefined && Platform.OS === 'android')
-            return (
-                <TouchableOpacity
-                    style={styles.share_touchable_floatingactionbutton}
-                    onPress={() => {this._shareFilms()}}
-                >
-                    <Image 
-                        style={styles.share_image}
-                        source={require('../utils/Images/ic_share.png')}
-                    />
-                </TouchableOpacity>
-            )
+        return (
+            <TouchableOpacity
+                style={styles.share_touchable_floatingactionbutton}
+                onPress={() => {this._shareFilms()}}
+            >
+                <Image 
+                    style={styles.share_image}
+                    source={require('../assets/Images/ic_share.png')}
+                />
+            </TouchableOpacity>
+        )
     }
 
     componentDidMount() {
@@ -247,9 +245,9 @@ const styles = StyleSheet.create({
         height: 30
       }
 })
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
-        favoritesFilm: state.favoritesFilm
+        favoritesFilm: state.toggleFavorite.favoritesFilm
     }
 }
 export default connect(mapStateToProps)(FilmDetails)

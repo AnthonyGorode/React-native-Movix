@@ -6,17 +6,21 @@ import { createAppContainer } from 'react-navigation';
 import Search from '../Components/Search';
 import FilmDetails from '../Components/FilmDetails';
 import Favorites from '../Components/Favorites';
-
+import Avatar from '../Components/Avatar'
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
         screen: Search,
         navigationOptions: {
-            title: "Rechercher"
+            title: "Rechercher",
+            headerRight: <Avatar/>
         }
     },
     FilmDetails: {
-        screen: FilmDetails
+        screen: FilmDetails,
+        navigationOptions: {
+            headerRight: <Avatar/>
+        }
     }
 })
 
@@ -24,11 +28,15 @@ const FavoritesStackNavigator = createStackNavigator({
     Favorites: {
       screen: Favorites,
       navigationOptions: {
-        title: 'Favoris'
+        title: 'Favoris',
+        headerRight: <Avatar/>
       }
     },
     FilmDetails: {
-      screen: FilmDetails
+      screen: FilmDetails,
+      navigationOptions: {
+        headerRight: <Avatar/>
+      }
     }
 })
 
@@ -38,7 +46,7 @@ const MoviesTabNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image 
-                    source={require('../utils/Images/ic_search.png')} 
+                    source={require('../assets/Images/ic_search.png')} 
                     style={styles.icon} 
                 />
             }
@@ -49,7 +57,7 @@ const MoviesTabNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image 
-                    source={require('../utils/Images/ic_favorite.png')} 
+                    source={require('../assets/Images/ic_favorite.png')} 
                     style={styles.icon} 
                 />
             }

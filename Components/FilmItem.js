@@ -13,7 +13,7 @@ export default class FilmItem extends Component {
         if(this.props.isFavoriteFilm){
             return (
                 <OpacityHeartItem
-                    source={require("../utils/Images/ic_favorite.png")}
+                    source={require("../assets/Images/ic_favorite.png")}
                     style={styles.favorite_image}
                 />
             )

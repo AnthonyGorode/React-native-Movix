@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, Button, TextInput } from 'react-native';
+import { StyleSheet,View, TextInput } from 'react-native';
 
 import FilmList from './FilmList';
 import { searchMovieByQuery, moviesDiscover } from '../Config/API/apiMovies';
@@ -114,11 +114,6 @@ class Search extends Component {
                     onChangeText={(text) => this._searchTextInputChanged(text) } 
                     style={styles.search}
                     placeholder="Titre du film"
-                />
-                <Button 
-                    style={styles.button}
-                    title="Rechercher"
-                    onPress={ () => this._searchFilms() }
                 />
 
                 <FilmList
