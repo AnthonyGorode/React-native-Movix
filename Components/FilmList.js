@@ -23,6 +23,7 @@ class FilmList extends React.Component {
   render() {
     return (
         <FlatList
+          horizontal={this.props.isHorizontal}
           style={styles.list}
           data={this.props.films}
           extraData={this.props.favoritesFilm}
@@ -34,6 +35,8 @@ class FilmList extends React.Component {
                     film => film.id === item.id) !== -1 ? true : false
                 }
                 displayDetailsFilm={this._displayDetailsFilm}
+                searchFilm={this.props.searchFilm}
+                isHorizontal={this.props.isHorizontal}
             />
           )}
           onEndReachedThreshold={0.5}

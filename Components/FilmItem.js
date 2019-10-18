@@ -13,8 +13,8 @@ export default class FilmItem extends Component {
         if(this.props.isFavoriteFilm){
             return (
                 <OpacityHeartItem
-                    source={require("../assets/Images/ic_favorite.png")}
-                    style={styles.favorite_image}
+                    source={require("../assets/Images/ic_heart_full.png")}
+                    style={this.props.isHorizontal ? styles.favorite_image_is_horizontal : styles.favorite_image}
                 />
             )
         }
@@ -29,7 +29,7 @@ export default class FilmItem extends Component {
         const month = date.getMonth();
         const year = date.getFullYear();
         return (
-            <FadeIn>
+            <FadeIn searchFilm={this.props.searchFilm}>
                 <TouchableOpacity 
                     style={styles.main_container}
                     onPress={ () => displayDetailsFilm(film.id) }
@@ -38,19 +38,23 @@ export default class FilmItem extends Component {
                         style={styles.image}
                         source={{ uri: url_img }}
                     />
-                    <View style={styles.content_container}>
-                        <View style={styles.header_container}>
-                            {this._displayFavoriteImage()}
-                            <Text style={styles.title_text}>{ film.title }</Text>
-                            <Text style={styles.vote_text}>{ film.vote_average }/10</Text>
+                    {this.props.isHorizontal ? (
+                        this._displayFavoriteImage()
+                    ) : (
+                        <View style={styles.content_container}>
+                            <View style={styles.header_container}>
+                                {this._displayFavoriteImage()}
+                                <Text style={styles.title_text}>{ film.title }</Text>
+                                <Text style={styles.vote_text}>{ film.vote_average }/10</Text>
+                            </View>
+                            <View style={styles.description_container}>
+                                <Text style={styles.description_text} numberOfLines={6}>{film.overview }</Text>
+                            </View>
+                            <View style={styles.date_container}>
+                                <Text style={styles.date_text}>Sorti le {`${day}/${month}/${year}`}</Text>
+                            </View>
                         </View>
-                        <View style={styles.description_container}>
-                            <Text style={styles.description_text} numberOfLines={6}>{film.overview }</Text>
-                        </View>
-                        <View style={styles.date_container}>
-                            <Text style={styles.date_text}>Sorti le {`${day}/${month}/${year}`}</Text>
-                        </View>
-                    </View>
+                    )}
                 </TouchableOpacity>
             </FadeIn>
         )
@@ -102,7 +106,16 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     favorite_image: {
-        width: 20,
-        height: 20
+        width: 27,
+        height: 25
+    },
+    favorite_image_is_horizontal: {
+        width: 27,
+        height: 25,
+        position: 'absolute',
+        left: 8,
+        right: 0,
+        top: 10,
+        bottom: 0,
     }
 })

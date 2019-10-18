@@ -3,10 +3,27 @@ import { Image, StyleSheet } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation';
+import News from '../Components/News'
 import Search from '../Components/Search';
 import FilmDetails from '../Components/FilmDetails';
 import Favorites from '../Components/Favorites';
 import Avatar from '../Components/Avatar'
+
+const NewsStackNavigator = createStackNavigator({
+    News: {
+        screen: News,
+        navigationOptions: {
+            title: "Accueil",
+            headerRight: <Avatar/>
+        }
+    },
+    FilmDetails: {
+        screen: FilmDetails,
+        navigationOptions: {
+            headerRight: <Avatar/>
+        }
+    }
+})
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
@@ -41,6 +58,17 @@ const FavoritesStackNavigator = createStackNavigator({
 })
 
 const MoviesTabNavigator = createBottomTabNavigator({
+    News: {
+        screen: NewsStackNavigator,
+        navigationOptions: {
+            tabBarIcon: () => {
+                return <Image 
+                    source={require('../assets/Images/home.png')} 
+                    style={styles.icon} 
+                />
+            }
+        }
+    },
     Search: {
         screen: SearchStackNavigator,
         navigationOptions: {

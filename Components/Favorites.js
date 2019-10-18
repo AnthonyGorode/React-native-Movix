@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import FilmList from './FilmList';
 import Loadable from './utils/Loadable';
@@ -28,13 +28,17 @@ class Favorites extends Component {
     render(){
         return (
             <View style={styles.container}>
-                {/* <View style={styles.avatar_container}>
-                    <Avatar/>
-                </View> */}
-                <FilmList
-                    films={this.props.favoritesFilms} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
-                    navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
-                />
+                <ScrollView
+                    ref={ref => this.scrollView = ref}
+                    onContentSizeChange={(contentWidth, contentHeight)=>{        
+                        this.scrollView.scrollToEnd({animated: true});
+                    }}
+                >
+                    <FilmList
+                        films={this.props.favoritesFilms} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
+                        navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
+                    />
+                </ScrollView>
     
                 <Loadable 
                     style={styles.loadable} 

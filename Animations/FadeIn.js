@@ -30,12 +30,16 @@ class FadeIn extends Component {
             setTimeout(() => {
                 firstLoad = false
             },8000)
-        }     
+        } 
     }
 
     componentDidUpdate = () => {
-        firstLoad = true
-        this.componentDidMount()
+        if(this.props.searchFilm){
+            this.onLoad()
+            setTimeout(() => {
+                firstLoad = false
+            },8000)
+        }   
     }
 
     // componentWillMount = () => {

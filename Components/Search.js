@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, TextInput } from 'react-native';
+import { StyleSheet,View, TextInput, Text } from 'react-native';
 
 import FilmList from './FilmList';
-import { searchMovieByQuery, moviesDiscover } from '../Config/API/apiMovies';
+import { searchMovieByQuery } from '../Config/API/apiMovies';
 import Loadable from './utils/Loadable';
-import { connect } from 'react-redux';
 
 class Search extends Component {
     constructor(props){
@@ -15,8 +14,11 @@ class Search extends Component {
         this.totalPages = 0;
 
         this.state = {
-            films : [],
-            isLoading: true
+            films: [],
+            searchFilm: false,
+            isLoading: false,
+            isHorizontal: false
+
         }
 
     }
@@ -42,29 +44,20 @@ class Search extends Component {
                 isLoading: true
             })
             searchMovieByQuery(this.searchText,this.page + 1).then((data) => {
-                this._debugOnlyKeyApiMovie(data);
-                console.log("Page : " + this.page + " TotalPages : " + this.totalPages + " Nombre de films : " + this.state.films.length);
+                if(data){     
+                    this._debugOnlyKeyApiMovie(data);
+                    console.log("Page : " + this.page + " TotalPages : " + this.totalPages + " Nombre de films : " + this.state.films.length)
+                    this.setState({
+                        isResultSearch: false
+                    })
+                }
+                this.setState({
+                    searchFilm: true
+                })
+            }).catch(error => {
+                console.log(error)
             })
         }
-    }
-
-    /**
-     * Search the movies by default
-     */
-    _loadFilmsDiscover = () => {
-        this.setState({
-            isLoading: true
-        })
-        moviesDiscover().then((data) => {
-
-            this.setState({
-                films : [...data.results],
-                isLoading: false
-            })
-            console.log("Page : " + this.page + " TotalPages : " + this.totalPages + " Nombre de films : " + this.state.films.length);
-        }).catch((error) => {
-            console.log(error)
-        })
     }
 
     /**
@@ -97,14 +90,6 @@ class Search extends Component {
         this.props.navigation.navigate("FilmDetails", { "idFilm": idFilm })
     }
 
-    componentDidMount = () => {
-        this._loadFilmsDiscover();
-    }
-
-    componentDidUpdate = () => {
-        
-    }
-
     render(){
         
         return (
@@ -122,6 +107,8 @@ class Search extends Component {
                     loadFilms={this._loadFilms} // _loadFilm charge les films suivants, ça concerne l'API, le component FilmList va juste appeler cette méthode quand l'utilisateur aura parcouru tous les films et c'est le component Search qui lui fournira les films suivants
                     page={this.page}
                     totalPages={this.totalPages} // les infos page et totalPages vont être utile, côté component FilmList, pour ne pas déclencher l'évènement pour charger plus de film si on a atteint la dernière page
+                    searchFilm={this.state.searchFilm}
+                    isHorizontal={this.state.isHorizontal}
                 />
                                     
                 <Loadable 
@@ -161,17 +148,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         right: 0,
-        top: 100,
+        top: 0,
         bottom: 0,
         justifyContent: "center",
         alignItems: "center"
+    },
+    noResult: {
+        textAlign: "center"
     }
 })
 
-const mapStateToProps = (state) => {
-    return {
-        favoritesFilm: state.favoritesFilm
-    }
-}
-
-export default connect(mapStateToProps)(Search)
+export default Search

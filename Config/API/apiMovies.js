@@ -18,6 +18,24 @@ export const moviesDiscover = (page = 1) => {
     )
 }
 
+export const moviesDrama = (page = 1) => {
+    const url = `https://api.themoviedb.org/3/discover/movie?with_genres=18&primary_release_year=2018&api_key=${API_TOKEN}&language=fr`;
+
+    return fetch(url).then(
+        response => response.json(),
+        error => console.log(error)
+    )
+}
+
+export const moviesScifi = (page = 1) => {
+    const url = `https://api.themoviedb.org/3/discover/movie?with_genres=878&primary_release_year=2019&api_key=${API_TOKEN}&language=fr`;
+
+    return fetch(url).then(
+        response => response.json(),
+        error => console.log(error)
+    )
+}
+
 // Récupération du détail d'un film
 export function getFilmDetailFromApi(id) {
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_TOKEN}&language=fr`

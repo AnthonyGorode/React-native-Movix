@@ -45,13 +45,13 @@ class FilmDetails extends Component {
     // }
 
     _displayFavoriteImage = () => {
-        let sourceImage = require("../assets/Images/ic_favorite_border.png")
+        let sourceImage = require("../assets/Images/ic_heart_border.png")
         let shouldLarge = false
         const checkFilmFavoris = this.props.favoritesFilm.findIndex(
             item => item.id == this.state.film.id
         )
         if(checkFilmFavoris !== -1){
-            sourceImage = require("../assets/Images/ic_favorite.png")
+            sourceImage = require("../assets/Images/ic_heart_full.png")
             shouldLarge = true
         }
         return (
@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     favorite_image: {
-        width: 40,
-        height: 40
+        width: 60,
+        height: 53
     },
     share_touchable_floatingactionbutton: {
         position: 'absolute',
