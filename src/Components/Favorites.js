@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import FilmList from './FilmList';
+import MainStyles from './styles/Styles'
 import Loadable from './utils/Loadable';
 
 
@@ -51,7 +52,8 @@ class Favorites extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#282728'
     },
     loadable: {
         position: 'absolute',

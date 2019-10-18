@@ -4,6 +4,7 @@ import { StyleSheet,View, TextInput, Text } from 'react-native';
 import FilmList from './FilmList';
 import { searchMovieByQuery } from '../Config/API/apiMovies';
 import Loadable from './utils/Loadable';
+import MainStyles from './styles/Styles'
 
 class Search extends Component {
     constructor(props){
@@ -100,7 +101,6 @@ class Search extends Component {
                     style={styles.search}
                     placeholder="Titre du film"
                 />
-
                 <FilmList
                     films={this.state.films} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
                     navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
@@ -123,7 +123,8 @@ class Search extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#282728'
     },
     search:{
         margin: 5,

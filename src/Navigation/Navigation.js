@@ -1,26 +1,33 @@
 import React, { Component } from 'react'
-import { Image, StyleSheet } from 'react-native'
+import { Image, StyleSheet, Text } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation';
-import News from '../Components/News'
+import Home from '../Components/Home'
 import Search from '../Components/Search';
 import FilmDetails from '../Components/FilmDetails';
 import Favorites from '../Components/Favorites';
 import Avatar from '../Components/Avatar'
+import MainStyles from '../Components/styles/Styles'
 
-const NewsStackNavigator = createStackNavigator({
-    News: {
-        screen: News,
+const HomeStackNavigator = createStackNavigator({
+    Home: {
+        screen: Home,
         navigationOptions: {
-            title: "Accueil",
-            headerRight: <Avatar/>
-        }
+            headerTitle: <Text 
+                style={
+                    {color: '#e50914', fontFamily:'Bungee Inline', fontSize: 26}
+                }
+            >ACCUEIL</Text>,  
+            headerRight: <Avatar/>,
+            headerStyle: MainStyles.Navigation,
+        },
     },
     FilmDetails: {
         screen: FilmDetails,
         navigationOptions: {
-            headerRight: <Avatar/>
+            headerRight: <Avatar/>,
+            headerStyle: MainStyles.Navigation,
         }
     }
 })
@@ -29,14 +36,20 @@ const SearchStackNavigator = createStackNavigator({
     Search: {
         screen: Search,
         navigationOptions: {
-            title: "Rechercher",
-            headerRight: <Avatar/>
+            headerTitle: <Text 
+                style={
+                    {color: '#e50914', fontFamily:'Bungee Inline', fontSize: 26}
+                }
+            >RECHERCHER</Text>,
+            headerRight: <Avatar/>,
+            headerStyle: MainStyles.Navigation,
         }
     },
     FilmDetails: {
         screen: FilmDetails,
         navigationOptions: {
-            headerRight: <Avatar/>
+            headerRight: <Avatar/>,
+            headerStyle: MainStyles.Navigation,
         }
     }
 })
@@ -45,8 +58,13 @@ const FavoritesStackNavigator = createStackNavigator({
     Favorites: {
       screen: Favorites,
       navigationOptions: {
-        title: 'Favoris',
-        headerRight: <Avatar/>
+        headerTitle: <Text 
+        style={
+            {color: '#e50914', fontFamily:'Bungee Inline', fontSize: 26}
+        }
+        >FAVORIS</Text>,
+        headerRight: <Avatar/>,
+        headerStyle: MainStyles.Navigation,
       }
     },
     FilmDetails: {
@@ -58,12 +76,12 @@ const FavoritesStackNavigator = createStackNavigator({
 })
 
 const MoviesTabNavigator = createBottomTabNavigator({
-    News: {
-        screen: NewsStackNavigator,
+    Home: {
+        screen: HomeStackNavigator,
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image 
-                    source={require('../assets/Images/home.png')} 
+                    source={require('../assets/Images/home_white.png')} 
                     style={styles.icon} 
                 />
             }
@@ -74,7 +92,7 @@ const MoviesTabNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image 
-                    source={require('../assets/Images/ic_search.png')} 
+                    source={require('../assets/Images/search_white.png')} 
                     style={styles.icon} 
                 />
             }
@@ -85,7 +103,7 @@ const MoviesTabNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image 
-                    source={require('../assets/Images/ic_favorite.png')} 
+                    source={require('../assets/Images/favorite_white.png')} 
                     style={styles.icon} 
                 />
             }
@@ -95,8 +113,8 @@ const MoviesTabNavigator = createBottomTabNavigator({
     tabBarOptions: {
         showLabel: false,
         showIcon: true,
-        activeBackgroundColor: '#DDD',
-        inactiveBackgroundColor: '#FFF'
+        activeBackgroundColor: '#3f3d3f',
+        inactiveBackgroundColor: MainStyles.Navigation.backgroundColor
     }
 })
 

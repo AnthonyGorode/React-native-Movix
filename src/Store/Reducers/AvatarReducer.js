@@ -1,4 +1,4 @@
-const initialState = { avatar: require('../../assets/Images/ic_tag_faces.png') }
+const initialState = { avatar: require('../../assets/Images/avatar.png') }
 
 const setAvatar = (state = initialState, action) => {
     let nextState

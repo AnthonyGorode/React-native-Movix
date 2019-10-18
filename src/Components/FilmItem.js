@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import FadeIn from '../Animations/FadeIn'
-import OpacityHeartItem from '../Animations/OpacityHeartItem'
+import FadeIn from './utils/Animations/FadeIn'
+import OpacityHeartItem from './utils/Animations/OpacityHeartItem'
 // import Animated from 'react-native-reanimated';
 
 export default class FilmItem extends Component {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     header_container: {
-        flex: 3,
+        flex: 2,
         flexDirection: 'row'
     },
     description_container: {
@@ -87,9 +87,9 @@ const styles = StyleSheet.create({
     },
     title_text: {
         flex: 1,
-        fontSize: 20,
+        fontSize: 22,
         flexWrap: 'wrap',
-        fontWeight: 'bold',
+        fontFamily: 'Modak',
         paddingRight: 5
     },
     vote_text: {
@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     },
     date_text: {
         textAlign: 'right',
-        fontSize: 14
+        fontSize: 14,
+        color: '#A3A3A3'
     },
     favorite_image: {
         width: 27,

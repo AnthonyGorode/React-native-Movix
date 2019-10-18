@@ -12,6 +12,6 @@ module.exports = {
         experimentalImportSupport: false,
         inlineRequires: false,
       },
-    }),
-  },
+    })
+  }
 };

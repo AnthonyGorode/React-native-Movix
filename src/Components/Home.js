@@ -4,8 +4,9 @@ import { StyleSheet,View,Text, ScrollView } from 'react-native';
 import FilmList from './FilmList';
 import { moviesDiscover, moviesDrama, moviesScifi } from '../Config/API/apiMovies';
 import Loadable from './utils/Loadable';
+import MainStyles from './styles/Styles'
 
-class News extends Component {
+class Home extends Component {
     constructor(props){
         super(props);
 
@@ -129,10 +130,10 @@ class News extends Component {
     render(){
         
         return (
-            <View style={styles.container}>
+            <View style={styles.container,MainStyles.Content}>
                 <ScrollView>
                     <View style={styles.discover_container}>
-                        <Text style={styles.title_list}>Nouveautés</Text>
+                        <Text style={MainStyles.Title}>Nouveautés</Text>
                         <FilmList
                             films={this.state.films} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
                             navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
@@ -144,7 +145,7 @@ class News extends Component {
                     </View>
 
                     <View style={styles.drama_container}>
-                        <Text style={styles.title_list}>Best Dramas</Text>
+                        <Text style={MainStyles.Title}>Best Dramas</Text>
                         <FilmList
                             films={this.state.filmsDrama} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
                             navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
@@ -156,7 +157,7 @@ class News extends Component {
                     </View>
 
                     <View style={styles.scifi_container}>
-                        <Text style={styles.title_list}>Best Science Fiction</Text>
+                        <Text style={MainStyles.Title}>Best Science Fiction</Text>
                         <FilmList
                             films={this.state.filmsScifi} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
                             navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
@@ -199,11 +200,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         justifyContent: "center",
         alignItems: "center"
-    },
-    title_list: {      
-        fontSize: 20,
-        fontWeight: 'bold',
     }
 })
 
-export default News
+export default Home

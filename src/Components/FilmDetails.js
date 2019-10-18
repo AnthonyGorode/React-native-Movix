@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Share, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Loadable from './utils/Loadable';
-import { getFilmDetailFromApi } from '../Config/API/apiMovies';
+import { getFilmDetailFromApi,getFilmVideosFromApi } from '../Config/API/apiMovies';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import numeral from 'numeral';
 import { connect } from 'react-redux';
-import EnlargeShrink from '../Animations/EnlargeShrink'
+import EnlargeShrink from './utils/Animations/EnlargeShrink'
+import MainStyles from './styles/Styles'
 
 class FilmDetails extends Component {
 
@@ -15,6 +16,7 @@ class FilmDetails extends Component {
         super(props);
         this.state = {
             film: undefined,
+            video: [],
             isLoading: true
         }
 
@@ -73,7 +75,7 @@ class FilmDetails extends Component {
             const budget = numeral(film.budget).format('0,0');
             const url_img = 'https://image.tmdb.org/t/p/w500' + film.backdrop_path
             return (
-                <ScrollView style={styles.scrollView_container}>
+                <ScrollView style={styles.scrollView_container,MainStyles.Content}>
                     <Image
                         style={styles.image}
                         source={{ uri: url_img }}
@@ -145,6 +147,17 @@ class FilmDetails extends Component {
                     isLoading: false
                 })
             }
+        ).then(
+            () => {
+                getFilmVideosFromApi(this.state.film).then(
+                    videos => {
+                        // let video = videos.shift()
+                        // this.setState({
+                        //     video
+                        // })
+                    }
+                )
+            }
         )
     }
 
@@ -188,8 +201,8 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontWeight: "bold",
-        fontSize: 28,
+        fontFamily: 'Modak',
+        fontSize: 35,
         margin: 6
     },
     content_container: {
@@ -202,10 +215,12 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     genres: {
-        flexDirection: "row"
+        flexDirection: "row",
+        color: '#A3A3A3',
     },
     details_container: {
-        marginTop: 6
+        marginTop: 6,
+        color: '#A3A3A3',
     },
     details: {
         margin: 3
@@ -226,8 +241,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     favorite_image: {
-        width: 60,
-        height: 53
+        width: 40,
+        height: 36
     },
     share_touchable_floatingactionbutton: {
         position: 'absolute',

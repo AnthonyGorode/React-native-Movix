@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MyMoviesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyMoviesTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -16,6 +15,11 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* MyMoviesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyMoviesTests.m */; };
+		4B3B97CDF4D6417BBD6AF6C9 /* Press Start 2P.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7280217E005645008A5809AA /* Press Start 2P.ttf */; };
+		70F072ADAEC74F4CBC8942A2 /* PressStart2P-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCA7667538554A53B1F161B6 /* PressStart2P-Regular.ttf */; };
+		E1E9F57DCDA74FA49ECF2F6E /* Modak.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDF6D03AC854450280A3532C /* Modak.ttf */; };
+		D855A8D65EBA47218CA93D72 /* Monoton.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B585EAEEAEA450AAA3683A9 /* Monoton.ttf */; };
+		233259018A064C329A0C8F95 /* Bungee Inline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BBA99F72F05402BAF3CC288 /* Bungee Inline.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,11 @@
 		2D02E4901E0B4A5D006451C7 /* MyMovies-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyMovies-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		7280217E005645008A5809AA /* Press Start 2P.ttf */ = {isa = PBXFileReference; name = "Press Start 2P.ttf"; path = "../src/assets/fonts/Press Start 2P.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BCA7667538554A53B1F161B6 /* PressStart2P-Regular.ttf */ = {isa = PBXFileReference; name = "PressStart2P-Regular.ttf"; path = "../src/assets/fonts/PressStart2P-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FDF6D03AC854450280A3532C /* Modak.ttf */ = {isa = PBXFileReference; name = "Modak.ttf"; path = "../src/assets/fonts/Modak.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1B585EAEEAEA450AAA3683A9 /* Monoton.ttf */ = {isa = PBXFileReference; name = "Monoton.ttf"; path = "../src/assets/fonts/Monoton.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1BBA99F72F05402BAF3CC288 /* Bungee Inline.ttf */ = {isa = PBXFileReference; name = "Bungee Inline.ttf"; path = "../src/assets/fonts/Bungee Inline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +149,7 @@
 				00E356EF1AD99517003FC87E /* MyMoviesTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				2430A1B6C76049968DDECE8B /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -156,6 +166,19 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		2430A1B6C76049968DDECE8B /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				7280217E005645008A5809AA /* Press Start 2P.ttf */,
+				BCA7667538554A53B1F161B6 /* PressStart2P-Regular.ttf */,
+				FDF6D03AC854450280A3532C /* Modak.ttf */,
+				1B585EAEEAEA450AAA3683A9 /* Monoton.ttf */,
+				1BBA99F72F05402BAF3CC288 /* Bungee Inline.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -240,7 +263,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -293,6 +316,11 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				4B3B97CDF4D6417BBD6AF6C9 /* Press Start 2P.ttf in Resources */,
+				70F072ADAEC74F4CBC8942A2 /* PressStart2P-Regular.ttf in Resources */,
+				E1E9F57DCDA74FA49ECF2F6E /* Modak.ttf in Resources */,
+				D855A8D65EBA47218CA93D72 /* Monoton.ttf in Resources */,
+				233259018A064C329A0C8F95 /* Bungee Inline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
