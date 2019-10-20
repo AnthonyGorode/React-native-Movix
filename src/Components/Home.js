@@ -117,14 +117,13 @@ class Home extends Component {
         })
     }
 
-    _displayDetailsFilm = (idFilm) => {
-        this.props.navigation.navigate("FilmDetails", { "idFilm": idFilm })
-    }
-
     componentDidMount = () => {
-        this._loadFilmsDiscover();
-        this._loadFilmsDrama()
-        this._loadFilmsScifi()
+        const { films, filmsDrama, filmsScifi } = this.state
+        if(films && filmsDrama && filmsScifi){
+            this._loadFilmsDiscover();
+            this._loadFilmsDrama()
+            this._loadFilmsScifi()
+        }
     }
 
     render(){
@@ -141,6 +140,7 @@ class Home extends Component {
                             page={this.page}
                             totalPages={this.totalPages} // les infos page et totalPages vont être utile, côté component FilmList, pour ne pas déclencher l'évènement pour charger plus de film si on a atteint la dernière page
                             isHorizontal={this.state.isHorizontal}
+                            youtubeComponent="YoutubeHome"
                         />
                     </View>
 

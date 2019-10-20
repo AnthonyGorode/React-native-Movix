@@ -8,6 +8,8 @@ import numeral from 'numeral';
 import { connect } from 'react-redux';
 import EnlargeShrink from './utils/Animations/EnlargeShrink'
 import MainStyles from './styles/Styles'
+import YouTube, { YouTubeStandaloneAndroid } from 'react-native-youtube'
+import { NavigationEvents } from 'react-navigation'
 
 class FilmDetails extends Component {
 
@@ -16,8 +18,12 @@ class FilmDetails extends Component {
         super(props);
         this.state = {
             film: undefined,
-            video: [],
-            isLoading: true
+            video: undefined,
+            isLoading: true,
+            apiKey: "AIzaSyAiiDkfBkDa7vSO5ad8Ux4y2P7O8BEmtrg",
+            fullscreen: false,
+            isPlaying: true,
+            isLooping: false,
         }
 
     }
@@ -68,14 +74,37 @@ class FilmDetails extends Component {
         )
     }
 
+    // _displayImageOrYoutube = (url_img) => {
+    //     const { video } = this.state
+    //     if(video === undefined){
+    //         console.log("IMAGE")
+    //         return (
+    //             <TouchableOpacity
+    //                 onPress={ () => {
+    //                     this._launchYoutubeVideo()
+    //                 } }
+    //             >
+    //                 <Image
+    //                     style={styles.image}
+    //                     source={{ uri: url_img }}
+    //                 /> 
+    //             </TouchableOpacity>
+    //         )
+    //     }          
+    // }
+
     _displayFilm = () => {
-        const film = this.state.film;
+        const { film } = this.state
         if(film !== undefined){
             const date = moment(new Date(film.release_date)).format("DD/MM/YYYY");
             const budget = numeral(film.budget).format('0,0');
-            const url_img = 'https://image.tmdb.org/t/p/w500' + film.backdrop_path
+            if(film.backdrop_path)
+                url_img = 'https://image.tmdb.org/t/p/w500' + film.backdrop_path
+            else
+                url_img = '../assets/Images/fond.jpg'
             return (
                 <ScrollView style={styles.scrollView_container,MainStyles.Content}>
+                    
                     <Image
                         style={styles.image}
                         source={{ uri: url_img }}
@@ -125,6 +154,18 @@ class FilmDetails extends Component {
         Share.share({title: film.title, message: film.overview})
     }
 
+    _launchYoutubeVideo = () => {
+        YouTubeStandaloneAndroid.playVideo({
+            apiKey: this.state.apiKey, // Your YouTube Developer API Key
+            videoId: this.state.video.key, // YouTube video ID
+            autoplay: true, // Autoplay the video
+            // startTime: 120, // Starting point of video (in seconds)
+            lightboxMode: false
+        })
+        .then(() => console.log('Standalone Player Exited'))
+        .catch(errorMessage => console.error(errorMessage));
+    }
+
     _displayFloatingActionButton = () => {
         return (
             <TouchableOpacity
@@ -133,10 +174,34 @@ class FilmDetails extends Component {
             >
                 <Image 
                     style={styles.share_image}
-                    source={require('../assets/Images/ic_share.png')}
+                    source={require('../assets/Images/share_white.png')}
                 />
             </TouchableOpacity>
         )
+    }
+
+    _displayFloatingPlayingButton = () => {
+        if(this.state.video)
+            return (
+                <TouchableOpacity
+                    style={styles.play_touchable_floatingactionbutton}
+                    onPress={ () => {
+                        this._launchYoutubeVideo()
+                    } }
+                >
+                    <Image 
+                        style={styles.play_image}
+                        source={require('../assets/Images/play.png')}
+                    />
+                </TouchableOpacity>
+            )
+    }
+
+    _toggleYoutubeComponent = (bool = false) => {
+        if(bool)
+            this.setState({
+                video: undefined
+            })
     }
 
     componentDidMount() {
@@ -149,12 +214,20 @@ class FilmDetails extends Component {
             }
         ).then(
             () => {
-                getFilmVideosFromApi(this.state.film).then(
+                getFilmVideosFromApi(this.state.film.id).then(
                     videos => {
-                        // let video = videos.shift()
-                        // this.setState({
-                        //     video
-                        // })
+                        console.log(videos)
+                        let video = undefined
+                        let isYoutube = true
+                        videos.results.map(item => {
+                            if(isYoutube && item.site === 'YouTube'){
+                                isYoutube = false
+                                video = item
+                            }                                         
+                        })
+                        this.setState({
+                            video
+                        })
                     }
                 )
             }
@@ -166,21 +239,19 @@ class FilmDetails extends Component {
     }
 
     render(){
-        // const { film } = this.state;
-        
-        // const date = new Date(film.release_date);
-        // const day = date.getDate();
-        // const month = date.getMonth();
-        // const year = date.getFullYear();
-
         return (
             <View style={styles.main_container}> 
+                {/* <NavigationEvents 
+                    onWillFocus={() => this._toggleYoutubeComponent()}
+                    onWillBlur={() => this._toggleYoutubeComponent(true)}
+                /> */}
                 {this._displayFilm() }
                 <Loadable
                     styles={styles.loadable}
                     isLoading={this.state.isLoading}
                 />
                 {this._displayFloatingActionButton()}
+                {this._displayFloatingPlayingButton()}
             </View>
         )
     }
@@ -251,18 +322,30 @@ const styles = StyleSheet.create({
         right: 30,
         bottom: 30,
         borderRadius: 30,
-        backgroundColor: '#e91e63',
+        backgroundColor: '#3f3d3f',
         justifyContent: 'center',
         alignItems: 'center'
-      },
-      share_image: {
+    },
+    play_touchable_floatingactionbutton: {
+        position: 'absolute',
+        right: 10,
+        top: 8,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    play_image: {
+        width: 105,
+        height: 50
+    },
+    share_image: {
         width: 30,
         height: 30
-      }
+    }
 })
 const mapStateToProps = state => {
     return {
-        favoritesFilm: state.toggleFavorite.favoritesFilm
+        favoritesFilm: state.toggleFavorite.favoritesFilm,
+        youtubeComponent: state.setYoutubeComponent.youtubeComponent
     }
 }
 export default connect(mapStateToProps)(FilmDetails)

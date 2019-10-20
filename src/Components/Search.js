@@ -87,10 +87,6 @@ class Search extends Component {
         this.searchText = searchText
     }
 
-    _displayDetailsFilm = (idFilm) => {
-        this.props.navigation.navigate("FilmDetails", { "idFilm": idFilm })
-    }
-
     render(){
         
         return (
@@ -109,6 +105,7 @@ class Search extends Component {
                     totalPages={this.totalPages} // les infos page et totalPages vont être utile, côté component FilmList, pour ne pas déclencher l'évènement pour charger plus de film si on a atteint la dernière page
                     searchFilm={this.state.searchFilm}
                     isHorizontal={this.state.isHorizontal}
+                    youtubeComponent="YoutubeSearch"
                 />
                                     
                 <Loadable 

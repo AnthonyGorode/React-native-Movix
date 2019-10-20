@@ -20,7 +20,6 @@ class Favorites extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props)
         this.setState({
             isLoading: false
         })
@@ -38,6 +37,7 @@ class Favorites extends Component {
                     <FilmList
                         films={this.props.favoritesFilms} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
                         navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
+                        youtubeComponent="YoutubeFavorite"
                     />
                 </ScrollView>
     

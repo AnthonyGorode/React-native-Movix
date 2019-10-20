@@ -40,7 +40,7 @@ export const searchMovieByQuery = (query, page) => {
 }
 
 // FETCH FOR DETAILS
-export function getFilmDetailFromApi(id) {
+export const getFilmDetailFromApi = (id) => {
     const url = `${apiUrl}/movie/${id}?api_key=${API_TOKEN}&language=fr`
     return fetch(url).then(
         (response) => response.json(),
@@ -49,7 +49,7 @@ export function getFilmDetailFromApi(id) {
 }
 
 // FETCH VIDEOS FOR DETAILS
-export function getFilmVideosFromApi(id) {
+export const getFilmVideosFromApi = (id) => {
     const url = `${apiUrl}/movie/${id}/videos?api_key=${API_TOKEN}&language=fr-FR`
     return fetch(url).then(
         (response) => response.json(),

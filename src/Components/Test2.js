@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import YouTube, { YouTubeStandaloneIOS, YouTubeStandaloneAndroid } from 'react-native-youtube';
 
-export default class Test extends React.Component {
+export default class Test2 extends React.Component {
   state = {
     isReady: false,
     status: null,

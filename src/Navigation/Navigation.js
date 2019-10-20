@@ -9,6 +9,8 @@ import FilmDetails from '../Components/FilmDetails';
 import Favorites from '../Components/Favorites';
 import Avatar from '../Components/Avatar'
 import MainStyles from '../Components/styles/Styles'
+import Test from '../Components/Test'
+import Test2 from '../Components/Test2';
 
 const HomeStackNavigator = createStackNavigator({
     Home: {
@@ -68,10 +70,12 @@ const FavoritesStackNavigator = createStackNavigator({
       }
     },
     FilmDetails: {
-      screen: FilmDetails,
-      navigationOptions: {
-        headerRight: <Avatar/>
-      }
+        screen: FilmDetails,
+        navigationOptions: {
+            headerRight: <Avatar/>,
+            headerStyle: MainStyles.Navigation,
+            
+        }
     }
 })
 
@@ -115,7 +119,8 @@ const MoviesTabNavigator = createBottomTabNavigator({
         showIcon: true,
         activeBackgroundColor: '#3f3d3f',
         inactiveBackgroundColor: MainStyles.Navigation.backgroundColor
-    }
+    },
+    // resetOnBlur:true
 })
 
 const styles = StyleSheet.create({
