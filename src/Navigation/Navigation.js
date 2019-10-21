@@ -18,7 +18,7 @@ const HomeStackNavigator = createStackNavigator({
         navigationOptions: {
             headerTitle: <Text 
                 style={
-                    {color: '#e50914', fontFamily:'Bungee Inline', fontSize: 26}
+                    {color: '#922e33', fontFamily:'Bungee Shade', fontSize: 26}
                 }
             >ACCUEIL</Text>,  
             headerRight: <Avatar/>,
@@ -40,7 +40,7 @@ const SearchStackNavigator = createStackNavigator({
         navigationOptions: {
             headerTitle: <Text 
                 style={
-                    {color: '#e50914', fontFamily:'Bungee Inline', fontSize: 26}
+                    {color: '#922e33', fontFamily:'Bungee Shade', fontSize: 26}
                 }
             >RECHERCHER</Text>,
             headerRight: <Avatar/>,
@@ -62,7 +62,7 @@ const FavoritesStackNavigator = createStackNavigator({
       navigationOptions: {
         headerTitle: <Text 
         style={
-            {color: '#e50914', fontFamily:'Bungee Inline', fontSize: 26}
+            {color: '#922e33', fontFamily:'Bungee Shade', fontSize: 26}
         }
         >FAVORIS</Text>,
         headerRight: <Avatar/>,

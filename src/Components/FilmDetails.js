@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { View, Share, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Loadable from './utils/Loadable';
-import { getFilmDetailFromApi,getFilmVideosFromApi } from '../Config/API/apiMovies';
-import { ScrollView } from 'react-native-gesture-handler';
+import { 
+    getFilmDetailFromApi,
+    getFilmVideosFromApi,
+    getFilmActorsFromApi,
+    getFilmImagesFromApi,
+    getFilmRecommandationsFromApi 
+} from '../Config/API/apiMovies';
+import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import moment from 'moment';
 import numeral from 'numeral';
 import { connect } from 'react-redux';
@@ -18,14 +24,17 @@ class FilmDetails extends Component {
         super(props);
         this.state = {
             film: undefined,
+            filmParam: this.props.navigation.getParam("idFilm"),
             video: undefined,
+            actors: [],
+            images: [],
+            recommands: [],
             isLoading: true,
             apiKey: "AIzaSyAiiDkfBkDa7vSO5ad8Ux4y2P7O8BEmtrg",
             fullscreen: false,
             isPlaying: true,
             isLooping: false,
         }
-
     }
 
     _toggleFavorite = () => {
@@ -96,22 +105,39 @@ class FilmDetails extends Component {
     _displayFilm = () => {
         const { film } = this.state
         if(film !== undefined){
-            const date = moment(new Date(film.release_date)).format("DD/MM/YYYY");
+            const date = moment(new Date(film.release_date)).format("YYYY");
             const budget = numeral(film.budget).format('0,0');
             if(film.backdrop_path)
                 url_img = 'https://image.tmdb.org/t/p/w500' + film.backdrop_path
             else
                 url_img = '../assets/Images/fond.jpg'
             return (
-                <ScrollView style={styles.scrollView_container,MainStyles.Content}>
-                    
+                <ScrollView style={styles.scrollView_container,MainStyles.Content}>                
                     <Image
                         style={styles.image}
                         source={{ uri: url_img }}
                     /> 
                     <View style={styles.title_container}>
-                        <Text style={styles.title} h1>{film.title}</Text>
+                        <Text style={styles.title}>{film.title}</Text>
                     </View>
+                    <View
+                        style={{
+                            borderBottomColor: '#3f3d3f',
+                            borderBottomWidth: StyleSheet.hairlineWidth,
+                        }}
+                    />
+                    <View style={styles.header_details_container}>
+                        <Text style={styles.content_header_details}>{date}</Text>
+                        <Text style={styles.content_header_details}>{film.vote_average}/10</Text>
+                        {this._displayFloatingPlayingButton(styles.play_button_header)}
+                    </View>
+                    <View
+                        style={{
+                            borderBottomColor: '#3f3d3f',
+                            borderBottomWidth: StyleSheet.hairlineWidth,
+                            marginBottom: 12,
+                        }}
+                    />
                     <View style={styles.content_container}>
                         <Text style={styles.content}>{film.overview}</Text>
                         <TouchableOpacity 
@@ -122,8 +148,27 @@ class FilmDetails extends Component {
                             } >
                             {this._displayFavoriteImage()}
                         </TouchableOpacity>
+                        <View>
+                            <View>
+                                <Text style={styles.title_list}>CASTING</Text>
+                            </View>
+                            {this._listActors()}
+                            <View style={ styles.title_companies_container }>
+                                <Text style={styles.title_list}>PRODUCTIONS</Text>
+                                <Text style={styles.budget}>{budget} $</Text>
+                            </View>
+                            {this._listCompanies()}
+                            <View style={ styles.title_companies_container }>
+                                <Text style={styles.title_list}>IMAGES</Text>
+                            </View>
+                            {this._listImages()}
+                            <View style={ styles.title_companies_container }>
+                                <Text style={styles.title_list}>RECOMMANDATIONS</Text>
+                            </View>
+                            {this._listRecommandations()}
+                        </View>
                     </View>
-                    <View style={styles.details_container}>
+                    {/* <View style={styles.details_container}>
                         <Text style={styles.details_container}>Sortie le {date}</Text>
                         <Text style={styles.details_container}>Note : {film.vote_average}/10</Text>
                         <Text style={styles.details_container}>Nombre de votes : {film.vote_count}</Text>
@@ -132,7 +177,7 @@ class FilmDetails extends Component {
                         
                         <Text style={styles.genres}>Genres : {this._iterateDatasFilms(film.genres)}</Text>
                         <Text style={styles.genres}>Companies : {this._iterateDatasFilms(film.production_companies)}</Text>
-                    </View>
+                    </View> */}
                 </ScrollView>
             )
         }
@@ -180,11 +225,11 @@ class FilmDetails extends Component {
         )
     }
 
-    _displayFloatingPlayingButton = () => {
+    _displayFloatingPlayingButton = (mystyle = styles.play_touchable_floatingactionbutton) => {
         if(this.state.video)
             return (
                 <TouchableOpacity
-                    style={styles.play_touchable_floatingactionbutton}
+                    style={mystyle}
                     onPress={ () => {
                         this._launchYoutubeVideo()
                     } }
@@ -204,8 +249,179 @@ class FilmDetails extends Component {
             })
     }
 
+    _listActors = () => {
+        if(this.state.actors)
+            return (
+                <FlatList 
+                    horizontal={true}
+                    data={this.state.actors}
+                    keyExtractor={item => item.cast_id.toString()}
+                    renderItem={({item}) => this._templateActors(item)}
+                />
+            )
+    }
+    _templateActors = (actor) => {
+        if(actor.profile_path != null)
+            url_img = {uri: 'https://image.tmdb.org/t/p/w500'+ actor.profile_path}
+        else
+            url_img = require('../assets/Images/no-image.jpg')
+        return (
+            <View style={styles.actor_container}>
+                <Image
+                    style={styles.actor_image}
+                    source={url_img}
+                />
+                <View style={styles.names_container}>
+                    <View style={styles.actor_name_container}>
+                        <Text style={styles.actor_name}>{actor.name}</Text>
+                    </View>
+                    <View style={styles.character_name_container}>
+                        <Text style={styles.actor_character}>{actor.character}</Text>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    _listCompanies = () => {
+        if(this.state.film)
+            return (
+                <FlatList 
+                    horizontal={true}
+                    data={this.state.film.production_companies}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({item}) => this._templateCompanies(item)}
+                />
+            )
+    }
+    _templateCompanies = (company) => {
+        if(company.logo_path != null)
+            url_img = {uri: 'https://image.tmdb.org/t/p/w500'+ company.logo_path}
+        else
+            url_img = require('../assets/Images/no-image.jpg')
+        return (
+            <View style={styles.company_container}>
+                {/* <Image
+                    style={styles.company_image}
+                    source={url_img}
+                /> */}
+                <View style={styles.names_container}>
+                    <View style={styles.company_name_container}>
+                        <Text style={styles.company_name}>{company.name}</Text>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    _listImages = () => {
+        if(this.state.images)
+            return (
+                <FlatList 
+                    horizontal={true}
+                    data={this.state.images}
+                    keyExtractor={item => item.file_path.toString()}
+                    renderItem={({item}) => this._templateImages(item)}
+                />
+            )
+    }
+    _templateImages = (image) => {
+        if(image.file_path != null)
+            url_img = {uri: 'https://image.tmdb.org/t/p/w500'+ image.file_path}
+        else
+            url_img = require('../assets/Images/no-image.jpg')
+        return (
+            <View style={styles.image_container}>
+                <Image
+                    style={styles.image_image}
+                    source={url_img}
+                />
+            </View>
+        )
+    }
+
+    _listRecommandations = () => {
+        if(this.state.recommands)
+            return (
+                <FlatList 
+                    horizontal={true}
+                    data={this.state.recommands}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({item}) => this._templateRecommandations(item)}
+                />
+            )
+    }
+    _templateRecommandations = (recommand) => {
+        if(recommand.poster_path != null)
+            url_img = {uri: 'https://image.tmdb.org/t/p/w500'+ recommand.poster_path}
+        else
+            url_img = require('../assets/Images/no-image.jpg')
+        return (
+            <TouchableOpacity 
+                style={styles.image_container}
+                // onPress={() => this._displayDetailsFilm(recommand)}
+            >
+                <Image
+                    style={styles.recommand_image}
+                    source={url_img}
+                />
+            </TouchableOpacity>
+        )
+    }
+
+    
+    _displayDetailsFilm = (film) => {
+        this.setState({
+            film,
+            filmParam: film.id
+        })
+    }
+
+    _apiMoviesRequest = () => {
+        const { id } = this.state.film
+        getFilmVideosFromApi(id).then(
+            videos => {
+                console.log(videos)
+                let video = undefined
+                let isYoutube = true
+                videos.results.map(item => {
+                    if(isYoutube && item.site === 'YouTube'){
+                        isYoutube = false
+                        video = item
+                    }                                         
+                })
+                this.setState({
+                    video
+                })
+            }
+        )
+        getFilmActorsFromApi(id).then(
+            actors => {
+                this.setState({
+                    actors: actors.cast
+                })
+            }
+        )
+        getFilmImagesFromApi(id).then(
+            images => {
+                console.log(images)
+                this.setState({
+                    images: images.backdrops
+                })
+            }
+        )
+        getFilmRecommandationsFromApi(id).then(
+            recommands => {
+                this.setState({
+                    recommands: recommands.results
+                })
+            }
+        )
+    }
+
     componentDidMount() {
-        getFilmDetailFromApi(this.props.navigation.getParam("idFilm")).then(
+        
+        getFilmDetailFromApi(this.state.filmParam).then(
             film => {
                 this.setState({
                     film,
@@ -214,28 +430,9 @@ class FilmDetails extends Component {
             }
         ).then(
             () => {
-                getFilmVideosFromApi(this.state.film.id).then(
-                    videos => {
-                        console.log(videos)
-                        let video = undefined
-                        let isYoutube = true
-                        videos.results.map(item => {
-                            if(isYoutube && item.site === 'YouTube'){
-                                isYoutube = false
-                                video = item
-                            }                                         
-                        })
-                        this.setState({
-                            video
-                        })
-                    }
-                )
+                this._apiMoviesRequest()
             }
         )
-    }
-
-    componentDidUpdate(){
-        console.log(this.props.favoritesFilm);
     }
 
     render(){
@@ -251,7 +448,6 @@ class FilmDetails extends Component {
                     isLoading={this.state.isLoading}
                 />
                 {this._displayFloatingActionButton()}
-                {this._displayFloatingPlayingButton()}
             </View>
         )
     }
@@ -267,15 +463,27 @@ const styles = StyleSheet.create({
         height: 170,
         margin: 2
     },
-    title_container: {
-        
-    },
     title: {
+        color: "#b5b5b5",
         textAlign: "center",
-        fontFamily: 'Modak',
+        fontFamily: 'Bungee Inline',
         fontSize: 35,
-        margin: 6
+        margin: 1
     },
+    header_details_container: {
+        padding: 12,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    play_button_header: {
+
+    },
+    content_header_details: {
+        fontSize: 30,
+        fontFamily: "Luckiest Guy",
+        color: "#b5b5b5"
+    },  
     content_container: {
         alignItems: "stretch"
     },
@@ -283,7 +491,113 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         color: '#666666',
         margin: 3,
+        marginBottom: 12,
         fontSize: 16
+    },
+    title_list: {
+        color: "#b5b5b5",
+        fontFamily: 'Modak',
+        fontSize: 28
+    },
+    actor_container: {
+        flex: 1,
+        backgroundColor: '#3f3d3f',
+        margin: 5,
+        borderRadius: 6,
+    },
+    actor_image: {
+        width: 120,
+        height: 180,
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6
+    },
+    names_container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    actor_name_container: {
+        width: 120,
+    },
+    character_name_container: {
+        width: 120,
+    },
+    actor_name: {
+        flex: 1,
+        fontSize: 17,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        flexWrap: 'wrap',
+        alignItems: 'stretch',
+        fontFamily: 'fantasy'
+    },
+    actor_character: {
+        flex: 1,
+        fontSize: 18,
+        fontStyle: 'italic',
+        textAlign: 'center',
+        flexWrap: 'wrap',
+        alignItems: 'stretch',
+        fontFamily: 'cursive'
+    },
+    company_container: {
+        flex: 1,
+        backgroundColor: '#3f3d3f',
+        margin: 5,
+        borderRadius: 6,
+    },
+    company_image: {
+        width: 180,
+        height: 180,
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6
+    },
+    company_name_container: {
+        padding: 10
+    },
+    company_name: {
+        flex: 1,
+        fontSize: 17,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        flexWrap: 'wrap',
+        alignItems: 'stretch',
+        fontFamily: 'fantasy'
+    },
+    title_companies_container: {
+        marginTop: 15,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    budget: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: '#666666'
+    },
+    image_container: {
+        flex: 1,
+        backgroundColor: '#3f3d3f',
+        margin: 5,
+        borderRadius: 6,
+    },
+    image_image: {
+        width: 350,
+        height: 300,
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6,
+        borderBottomLeftRadius: 6,
+        borderBottomRightRadius: 6
+    },
+    recommand_image: {
+        width: 120,
+        height: 180,
+        margin: 5,
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6,
+        borderBottomLeftRadius: 6,
+        borderBottomRightRadius: 6
     },
     genres: {
         flexDirection: "row",
@@ -313,7 +627,8 @@ const styles = StyleSheet.create({
     },
     favorite_image: {
         width: 40,
-        height: 36
+        height: 36,
+        marginBottom: 10
     },
     share_touchable_floatingactionbutton: {
         position: 'absolute',

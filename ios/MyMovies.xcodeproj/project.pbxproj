@@ -20,6 +20,8 @@
 		E1E9F57DCDA74FA49ECF2F6E /* Modak.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDF6D03AC854450280A3532C /* Modak.ttf */; };
 		D855A8D65EBA47218CA93D72 /* Monoton.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B585EAEEAEA450AAA3683A9 /* Monoton.ttf */; };
 		233259018A064C329A0C8F95 /* Bungee Inline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BBA99F72F05402BAF3CC288 /* Bungee Inline.ttf */; };
+		706F8A0A90294F6AAE8AC63A /* Luckiest Guy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DD13AA10FB5497EB81EC44D /* Luckiest Guy.ttf */; };
+		906AE849D7C14E6D9930E1AF /* Bungee Shade.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81BBC218B3B14E228D0F5C98 /* Bungee Shade.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		FDF6D03AC854450280A3532C /* Modak.ttf */ = {isa = PBXFileReference; name = "Modak.ttf"; path = "../src/assets/fonts/Modak.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1B585EAEEAEA450AAA3683A9 /* Monoton.ttf */ = {isa = PBXFileReference; name = "Monoton.ttf"; path = "../src/assets/fonts/Monoton.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1BBA99F72F05402BAF3CC288 /* Bungee Inline.ttf */ = {isa = PBXFileReference; name = "Bungee Inline.ttf"; path = "../src/assets/fonts/Bungee Inline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3DD13AA10FB5497EB81EC44D /* Luckiest Guy.ttf */ = {isa = PBXFileReference; name = "Luckiest Guy.ttf"; path = "../src/assets/fonts/Luckiest Guy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		81BBC218B3B14E228D0F5C98 /* Bungee Shade.ttf */ = {isa = PBXFileReference; name = "Bungee Shade.ttf"; path = "../src/assets/fonts/Bungee Shade.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 				FDF6D03AC854450280A3532C /* Modak.ttf */,
 				1B585EAEEAEA450AAA3683A9 /* Monoton.ttf */,
 				1BBA99F72F05402BAF3CC288 /* Bungee Inline.ttf */,
+				3DD13AA10FB5497EB81EC44D /* Luckiest Guy.ttf */,
+				81BBC218B3B14E228D0F5C98 /* Bungee Shade.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -321,6 +327,8 @@
 				E1E9F57DCDA74FA49ECF2F6E /* Modak.ttf in Resources */,
 				D855A8D65EBA47218CA93D72 /* Monoton.ttf in Resources */,
 				233259018A064C329A0C8F95 /* Bungee Inline.ttf in Resources */,
+				706F8A0A90294F6AAE8AC63A /* Luckiest Guy.ttf in Resources */,
+				906AE849D7C14E6D9930E1AF /* Bungee Shade.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

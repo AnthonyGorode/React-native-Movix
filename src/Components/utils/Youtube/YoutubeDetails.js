@@ -23,15 +23,6 @@ class YoutubeComponent extends Component {
             playerWidth: Dimensions.get('window').width,
         };
 
-        this.unsetYoutubeIfExist();
-    }
-
-    unsetYoutubeIfExist = () => {
-        if(this.state.currentComponent === undefined)
-            this.state.currentComponent = this.props.youtubeComponent
-        if(this.state.currentComponent != this.props.youtubeComponent){
-            React.unmountComponentAtNode(YouTube)
-        }
     }
 
     render(){

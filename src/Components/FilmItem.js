@@ -89,8 +89,10 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 22,
         flexWrap: 'wrap',
-        fontFamily: 'Modak',
-        paddingRight: 5
+        color: "#b5b5b5",
+        fontWeight: 'bold',
+        fontFamily: 'fantasy',
+        paddingRight: 5,
     },
     vote_text: {
         fontWeight: 'bold',
@@ -107,8 +109,8 @@ const styles = StyleSheet.create({
         color: '#A3A3A3'
     },
     favorite_image: {
-        width: 27,
-        height: 25
+        width: 17,
+        height: 15
     },
     favorite_image_is_horizontal: {
         width: 27,
