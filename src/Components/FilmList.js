@@ -1,11 +1,11 @@
 // Components/FilmList.js
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import FilmItem from './FilmItem'
 import { connect } from 'react-redux'
 
-class FilmList extends Component {
+class FilmList extends PureComponent {
 
   constructor(props) {
     super(props)
@@ -26,7 +26,20 @@ class FilmList extends Component {
     )
   }
 
-  render() {
+  _renderItem = ({item}) => (
+    <FilmItem
+        key={item.id}
+        film={item} 
+        isFavoriteFilm={this.props.favoritesFilm.findIndex(
+            film => film.id === item.id) !== -1 ? true : false
+        }
+        displayDetailsFilm={this._displayDetailsFilm}
+        searchFilm={this.props.searchFilm}
+        isHorizontal={this.props.isHorizontal}
+    />
+  )
+
+  render = () => {
     return (
         <FlatList
           horizontal={this.props.isHorizontal}
@@ -34,17 +47,9 @@ class FilmList extends Component {
           data={this.props.films}
           extraData={this.props.favoritesFilm}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({item}) => (
-            <FilmItem
-                film={item} 
-                isFavoriteFilm={this.props.favoritesFilm.findIndex(
-                    film => film.id === item.id) !== -1 ? true : false
-                }
-                displayDetailsFilm={this._displayDetailsFilm}
-                searchFilm={this.props.searchFilm}
-                isHorizontal={this.props.isHorizontal}
-            />
-          )}
+          renderItem={this._renderItem}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
           onEndReachedThreshold={0.5}
           onEndReached={ () => { 
             if(this.props.page < this.props.totalPages){

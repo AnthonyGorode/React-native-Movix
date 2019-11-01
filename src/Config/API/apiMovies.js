@@ -3,6 +3,8 @@ const apiUrl = "https://api.themoviedb.org/3"
 
 // FETCH FOR HOME
     // DEPRECATED
+    // https://api.themoviedb.org/3/movie/popular?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr&include_adult=true
+    // https://api.themoviedb.org/3/discover/movie?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr&with_companies=420&sort_by=popularity.desc
     export const moviesDiscover = (page = 1) => {
         const url = `${apiUrl}/discover/movie?api_key=${API_TOKEN}&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
 
@@ -15,9 +17,12 @@ const apiUrl = "https://api.themoviedb.org/3"
     // https://api.themoviedb.org/3/movie/now_playing?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr
     export const moviesPlayingNow = () => {
         const url = `${apiUrl}/movie/now_playing?api_key=${API_TOKEN}&language=fr`;
-
+        console.log(url)
         return fetch(url).then(
-            response => response.json(),
+            response => {
+                console.log(response)
+                return response.json()
+            },
             error => console.log(error)
         )
     }
@@ -25,6 +30,17 @@ const apiUrl = "https://api.themoviedb.org/3"
     // https://api.themoviedb.org/3/trending/movie/day?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr
     export const moviesTrending = () => {
         const url = `${apiUrl}/trending/movie/day?api_key=${API_TOKEN}&language=fr`;
+        console.log(url)
+
+        return fetch(url).then(
+            response => response.json(),
+            error => console.log(error.message)
+        )
+    }
+
+    // https://api.themoviedb.org/3/movie/popular?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr&with_companies=420
+    export const moviesMarvel = () => {
+        const url = `${apiUrl}/movie/popular?api_key=${API_TOKEN}&language=fr&with_companies=420`;
 
         return fetch(url).then(
             response => response.json(),
@@ -32,9 +48,9 @@ const apiUrl = "https://api.themoviedb.org/3"
         )
     }
 
-    // https://api.themoviedb.org/3/movie/popular?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr
-    export const moviesPopular = () => {
-        const url = `${apiUrl}/movie/popular?api_key=${API_TOKEN}&language=fr`;
+    // https://api.themoviedb.org/3/movie/popular?api_key=2fae416c150ee4b2e2c62a138bf9b3ea&language=fr&with_companies=9993
+    export const moviesDC = () => {
+        const url = `${apiUrl}/movie/popular?api_key=${API_TOKEN}&language=fr&with_companies=9993`;
 
         return fetch(url).then(
             response => response.json(),
