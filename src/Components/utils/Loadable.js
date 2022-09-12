@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import {View, ActivityIndicator} from 'react-native';
 
-const Loadable = (props) => {
-    if(props.isLoading)
-        return (
-            <View style={props.styles}>
-                <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-        )
-    return <View></View>
-}
+const Loadable = props => {
+  if (props.isLoading) {
+    return (
+      <View style={props.styles}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+  return <View />;
+};
 
 export default Loadable;

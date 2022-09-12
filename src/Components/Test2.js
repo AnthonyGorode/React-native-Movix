@@ -4,13 +4,15 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity,
   PixelRatio,
   Platform,
   Button,
   Dimensions,
 } from 'react-native';
-import YouTube, { YouTubeStandaloneIOS, YouTubeStandaloneAndroid } from 'react-native-youtube';
+import YouTube, {
+  YouTubeStandaloneIOS,
+  YouTubeStandaloneAndroid,
+} from 'react-native-youtube';
 
 export default class Test2 extends React.Component {
   state = {
@@ -31,7 +33,9 @@ export default class Test2 extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.welcome}>{'<YouTube /> component for React Native.'}</Text>
+        <Text style={styles.welcome}>
+          {'<YouTube /> component for React Native.'}
+        </Text>
 
         <YouTube
           ref={this._youTubeRef}
@@ -48,44 +52,48 @@ export default class Test2 extends React.Component {
           fullscreen={this.state.fullscreen}
           controls={1}
           style={[
-            { height: PixelRatio.roundToNearestPixel(this.state.playerWidth / (16 / 9)) },
+            {
+              height: PixelRatio.roundToNearestPixel(
+                this.state.playerWidth / (16 / 9),
+              ),
+            },
             styles.player,
           ]}
           onError={e => {
-            this.setState({ error: e.error });
+            this.setState({error: e.error});
           }}
           onReady={e => {
-            this.setState({ isReady: true });
+            this.setState({isReady: true});
           }}
           onChangeState={e => {
-            this.setState({ status: e.state });
+            this.setState({status: e.state});
           }}
           onChangeQuality={e => {
-            this.setState({ quality: e.quality });
+            this.setState({quality: e.quality});
           }}
           onChangeFullscreen={e => {
-            this.setState({ fullscreen: e.isFullscreen });
+            this.setState({fullscreen: e.isFullscreen});
           }}
           onProgress={e => {
-            this.setState({ currentTime: e.currentTime });
+            this.setState({currentTime: e.currentTime});
           }}
         />
 
         {/* Playing / Looping */}
         <View style={styles.buttonGroup}>
           <Button
-            title={this.state.status == 'playing' ? 'Pause' : 'Play'}
-            color={this.state.status == 'playing' ? 'red' : undefined}
+            title={this.state.status === 'playing' ? 'Pause' : 'Play'}
+            color={this.state.status === 'playing' ? 'red' : undefined}
             onPress={() => {
-              this.setState(state => ({ isPlaying: !state.isPlaying }));
+              this.setState(state => ({isPlaying: !state.isPlaying}));
             }}
           />
-          <Text> </Text>
+          <Text />
           <Button
             title={this.state.isLooping ? 'Looping' : 'Not Looping'}
             color={this.state.isLooping ? 'green' : undefined}
             onPress={() => {
-              this.setState(state => ({ isLooping: !state.isLooping }));
+              this.setState(state => ({isLooping: !state.isLooping}));
             }}
           />
         </View>
@@ -100,7 +108,7 @@ export default class Test2 extends React.Component {
               }
             }}
           />
-          <Text> </Text>
+          <Text />
           <Button
             title="Next Video"
             onPress={() => {
@@ -121,7 +129,7 @@ export default class Test2 extends React.Component {
               }
             }}
           />
-          <Text> </Text>
+          <Text />
           <Button
             title="2 Minutes"
             onPress={() => {
@@ -130,7 +138,7 @@ export default class Test2 extends React.Component {
               }
             }}
           />
-          <Text> </Text>
+          <Text />
           <Button
             title="15 Minutes"
             onPress={() => {
@@ -156,7 +164,7 @@ export default class Test2 extends React.Component {
                       }
                     }}
                   />
-                  <Text> </Text>
+                  <Text />
                 </React.Fragment>
               ))}
             </View>
@@ -170,8 +178,8 @@ export default class Test2 extends React.Component {
               if (this._youTubeRef.current) {
                 this._youTubeRef.current
                   .getVideosIndex()
-                  .then(index => this.setState({ videosIndex: index }))
-                  .catch(errorMessage => this.setState({ error: errorMessage }));
+                  .then(index => this.setState({videosIndex: index}))
+                  .catch(errorMessage => this.setState({error: errorMessage}));
               }
             }}
           />
@@ -183,7 +191,7 @@ export default class Test2 extends React.Component {
             <Button
               title="Set Fullscreen"
               onPress={() => {
-                this.setState({ fullscreen: true });
+                this.setState({fullscreen: true});
               }}
             />
           </View>
@@ -198,8 +206,10 @@ export default class Test2 extends React.Component {
                 if (this._youTubeRef.current) {
                   this._youTubeRef.current
                     .getDuration()
-                    .then(duration => this.setState({ duration }))
-                    .catch(errorMessage => this.setState({ error: errorMessage }));
+                    .then(duration => this.setState({duration}))
+                    .catch(errorMessage =>
+                      this.setState({error: errorMessage}),
+                    );
                 }
               }}
             />
@@ -215,13 +225,17 @@ export default class Test2 extends React.Component {
                 if (this._youTubeRef.current) {
                   this._youTubeRef.current
                     .getCurrentTime()
-                    .then(currentTime => this.setState({ currentTime }))
-                    .catch(errorMessage => this.setState({ error: errorMessage }));
+                    .then(currentTime => this.setState({currentTime}))
+                    .catch(errorMessage =>
+                      this.setState({error: errorMessage}),
+                    );
 
                   this._youTubeRef.current
                     .getDuration()
-                    .then(duration => this.setState({ duration }))
-                    .catch(errorMessage => this.setState({ error: errorMessage }));
+                    .then(duration => this.setState({duration}))
+                    .catch(errorMessage =>
+                      this.setState({error: errorMessage}),
+                    );
                 }
               }}
             />
@@ -238,7 +252,7 @@ export default class Test2 extends React.Component {
                   .then(message => {
                     console.log(message);
                   })
-                  .catch(errorMessage => this.setState({ error: errorMessage }));
+                  .catch(errorMessage => this.setState({error: errorMessage}));
               }}
             />
           </View>
@@ -262,17 +276,22 @@ export default class Test2 extends React.Component {
                     console.log('Android Standalone Player Finished');
                   })
                   .catch(errorMessage => {
-                    this.setState({ error: errorMessage });
+                    this.setState({error: errorMessage});
                   });
               }}
             />
-            <Text> </Text>
+            <Text />
             <Button
               title="Videos"
               onPress={() => {
                 YouTubeStandaloneAndroid.playVideos({
                   apiKey: 'YOUR_API_KEY',
-                  videoIds: ['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0'],
+                  videoIds: [
+                    'HcXNPI-IPPM',
+                    'XXlZfc1TrD0',
+                    'czcjU1w-c6k',
+                    'uMK0prafzw0',
+                  ],
                   autoplay: false,
                   lightboxMode: true,
                   startIndex: 1,
@@ -282,11 +301,11 @@ export default class Test2 extends React.Component {
                     console.log('Android Standalone Player Finished');
                   })
                   .catch(errorMessage => {
-                    this.setState({ error: errorMessage });
+                    this.setState({error: errorMessage});
                   });
               }}
             />
-            <Text> </Text>
+            <Text />
             <Button
               title="Playlist"
               onPress={() => {
@@ -302,7 +321,7 @@ export default class Test2 extends React.Component {
                     console.log('Android Standalone Player Finished');
                   })
                   .catch(errorMessage => {
-                    this.setState({ error: errorMessage });
+                    this.setState({error: errorMessage});
                   });
               }}
             />
@@ -331,9 +350,12 @@ export default class Test2 extends React.Component {
 
         {/* Show Progress */}
         <Text style={styles.instructions}>
-          Progress: {Math.trunc(this.state.currentTime)}s ({Math.trunc(this.state.duration / 60)}:
+          Progress: {Math.trunc(this.state.currentTime)}s (
+          {Math.trunc(this.state.duration / 60)}:
           {Math.trunc(this.state.duration % 60)}s)
-          {Platform.OS !== 'ios' && <Text> (Click Update Progress & Duration)</Text>}
+          {Platform.OS !== 'ios' && (
+            <Text> (Click Update Progress & Duration)</Text>
+          )}
         </Text>
 
         <Text style={styles.instructions}>
